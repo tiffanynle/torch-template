@@ -1,0 +1,23 @@
+[project]
+authors = [{name = "Tiffany Le", email = "tiffanynle.cs@gmail.com"}]
+dependencies = []
+description = "Add a short description here"
+name = "torch-template"
+requires-python = ">= 3.11"
+version = "0.1.0"
+
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
+[tool.pixi.project]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tool.pixi.pypi-dependencies]
+torch_template = { path = ".", editable = true }
+
+[tool.pixi.tasks]
+
+[tool.pixi.dependencies]
+python = "3.11.*"
