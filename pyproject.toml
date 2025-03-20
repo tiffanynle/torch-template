@@ -1,7 +1,7 @@
 [project]
-authors = [{name = "Tiffany Le", email = "tiffanynle.cs@gmail.com"}]
+authors = [{ name = "Tiffany Le", email = "tiffanynle.cs@gmail.com" }]
 dependencies = []
-description = "Add a short description here"
+description = "A template for PyTorch projects"
 name = "torch-template"
 requires-python = ">= 3.11"
 version = "0.1.0"
@@ -18,6 +18,45 @@ platforms = ["linux-64"]
 torch_template = { path = ".", editable = true }
 
 [tool.pixi.tasks]
+test = "pytest"
+lint = "ruff check --fix"
+fmt = "ruff format"
+style = { depends-on = ["fmt", "lint"] }
 
 [tool.pixi.dependencies]
 python = "3.11.*"
+torchvision = ">=0.20.1,<0.21"
+wandb = ">=0.19.8,<0.20"
+hydra-core = ">=1.3.2,<2"
+
+[tool.pixi.feature.cuda.system-requirements]
+cuda = "12"
+
+[tool.pixi.feature.cuda.dependencies]
+cuda-version = "12.6.*"
+pytorch-gpu = "*"
+
+[tool.pixi.feature.cpu.dependencies]
+pytorch-cpu = "*"
+
+[tool.pixi.feature.test.dependencies]
+pytest = "*"
+pytest-cov = "*"
+pytest-xdist = "*"
+ruff = "*"
+
+[tool.pixi.environments]
+cpu = ["cpu"]
+cuda = ["cuda"]
+dev = ["cuda", "test"]
+default = ["cpu"]
+
+[tool.ruff.lint]
+select = ["D"]
+extend-select = ["I"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
